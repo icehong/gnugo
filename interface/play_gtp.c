@@ -33,6 +33,7 @@
 #include "liberty.h"
 #include "gtp.h"
 #include "gg_utils.h"
+#include <jni.h>
 
 /* Internal state that's not part of the engine. */
 static int report_uncertainty = 0;
@@ -4558,11 +4559,35 @@ gtp_draw_search_area(char *s)
   return gtp_finish_response();
 }
 
-
-
 /*
  * Local Variables:
  * tab-width: 8
  * c-basic-offset: 2
  * End:
  */
+
+JNIEXPORT jstring JNICALL
+Java_com_icehong_gnugo_IntentGoService_stringFromJNI(JNIEnv *env, jobject thiz) {
+    (*env)->NewStringUTF(env, "Hello from C");
+}
+JNIEXPORT jintArray JNICALL
+Java_com_icehong_gnugo_IntentGoService_javaIntArray(JNIEnv *env, jobject thiz, jint len) {
+    //第一个参数
+    //第二个参数 创建数组的长度
+    jintArray jntarray = (*env)->NewIntArray(env, len);
+
+    //数组转化为 jint* 类型
+    jint * jintp = (*env)->GetIntArrayElements(env, jntarray, NULL);
+
+
+    for (int i = 0; i < len; i++)
+    {   //jint 本质long 所以可以赋值
+        jintp[i] = i * 10;
+    }
+
+    //释放同步
+    (*env)->ReleaseIntArrayElements(env, jntarray, jintp, 0);
+    //返回
+    return jntarray;
+
+}

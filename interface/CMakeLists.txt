@@ -17,6 +17,6 @@ SET(gnugo_SRCS
 
 ADD_EXECUTABLE(gnugo ${gnugo_SRCS})
 
-TARGET_LINK_LIBRARIES(gnugo sgf engine sgf utils patterns ${PLATFORM_LIBRARIES})
+TARGET_LINK_LIBRARIES(gnugo sgf engine sgf utils patterns ${PLATFORM_LIBRARIES}  ${log-lib})
 
 INSTALL(TARGETS gnugo DESTINATION bin)
