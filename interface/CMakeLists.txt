@@ -15,8 +15,8 @@ SET(gnugo_SRCS
     gtp.c
     )
 
-ADD_EXECUTABLE(gnugo ${gnugo_SRCS})
+ADD_LIBRARY(gnugo SHARED ${gnugo_SRCS})
 
-TARGET_LINK_LIBRARIES(gnugo sgf engine sgf utils patterns ${PLATFORM_LIBRARIES}  ${log-lib})
+TARGET_LINK_LIBRARIES(gnugo sgf engine sgf utils patterns ${PLATFORM_LIBRARIES} ${log-lib})
 
 INSTALL(TARGETS gnugo DESTINATION bin)
