@@ -34,6 +34,11 @@
 #include "gtp.h"
 #include "gg_utils.h"
 #include <jni.h>
+#include <android/log.h>
+#define  LOG_TAG    "play_gtp"
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 
 /* Internal state that's not part of the engine. */
 static int report_uncertainty = 0;
@@ -4567,11 +4572,11 @@ gtp_draw_search_area(char *s)
  */
 
 JNIEXPORT jstring JNICALL
-Java_com_icehong_gnugo_IntentGoService_stringFromJNI(JNIEnv *env, jobject thiz) {
+Java_com_icehong_gnugo_GnugoService_stringFromJNI(JNIEnv *env, jobject thiz) {
     (*env)->NewStringUTF(env, "Hello from C");
 }
 JNIEXPORT jintArray JNICALL
-Java_com_icehong_gnugo_IntentGoService_javaIntArray(JNIEnv *env, jobject thiz, jint len) {
+Java_com_icehong_gnugo_GnugoService_javaIntArray(JNIEnv *env, jobject thiz, jint len) {
     //第一个参数
     //第二个参数 创建数组的长度
     jintArray jntarray = (*env)->NewIntArray(env, len);
@@ -4590,4 +4595,13 @@ Java_com_icehong_gnugo_IntentGoService_javaIntArray(JNIEnv *env, jobject thiz, j
     //返回
     return jntarray;
 
+}
+
+JNIEXPORT jint JNICALL
+Java_com_icehong_gnugo_GnugoService_main(JNIEnv *env, jobject thiz, jobjectArray para) {
+  int num = (*env)->GetArrayLength(env, para);
+  for(jint i = 0 ; i < num; i++){
+    jstring value = (jstring)(*env)->GetObjectArrayElement(env,para,i);
+    LOGD("str is %s", (*env)->GetStringUTFChars(env,value,NULL));
+  }
 }
