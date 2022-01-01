@@ -13,7 +13,7 @@ SET(mkpat_SRCS
 
 ADD_EXECUTABLE(mkpat ${mkpat_SRCS})
 
-TARGET_LINK_LIBRARIES(mkpat utils)
+TARGET_LINK_LIBRARIES(mkpat utils ${PLATFORM_LIBRARIES})
 
 
 ########### joseki program ###############
@@ -24,7 +24,7 @@ SET(joseki_SRCS
 
 ADD_EXECUTABLE(joseki ${joseki_SRCS})
 
-TARGET_LINK_LIBRARIES(joseki board sgf utils)
+TARGET_LINK_LIBRARIES(joseki board sgf utils ${PLATFORM_LIBRARIES})
 
 
 ########### mkeyes program ###############
@@ -35,7 +35,7 @@ SET(mkeyes_SRCS
 
 ADD_EXECUTABLE(mkeyes ${mkeyes_SRCS})
 
-TARGET_LINK_LIBRARIES(mkeyes utils)
+TARGET_LINK_LIBRARIES(mkeyes utils ${PLATFORM_LIBRARIES})
 
 
 ########### mkmcpat program ###############
@@ -61,7 +61,7 @@ SET(uncompress_fuseki_SRCS
 
 ADD_EXECUTABLE(uncompress_fuseki ${uncompress_fuseki_SRCS})
 
-TARGET_LINK_LIBRARIES(uncompress_fuseki utils board sgf)
+TARGET_LINK_LIBRARIES(uncompress_fuseki utils board sgf ${PLATFORM_LIBRARIES})
 
 
 ########### extract_fuseki program ###############

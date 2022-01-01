@@ -20,7 +20,7 @@
 #define DEFAULT_MEMORY -1
 
 /* Compile support for GTP communication over TCP/IP channel. */
-#undef ENABLE_SOCKET_SUPPORT
+#cmakedefine ENABLE_SOCKET_SUPPORT 0
 
 /* GAIN/LOSS codes. Disabled by default. */
 #define EXPERIMENTAL_OWL_EXT 0

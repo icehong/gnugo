@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 PROJECT(GNUGo C)
 
 INCLUDE(CheckIncludeFiles)
@@ -37,12 +37,21 @@ IF(MSVC80)
     ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE)
 ENDIF(MSVC80)
 
+OPTION(ENABLE_SOCKET_SUPPORT "Socket support " OFF)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
                ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 # Make sure all files know about and can find config.h
 ADD_DEFINITIONS(-DHAVE_CONFIG_H)
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+IF(WIN32)
+    SET(PLATFORM_LIBRARIES wsock32)
+ENDIF(WIN32)
+
+IF(UNIX)
+    SET(PLATFORM_LIBRARIES m)
+ENDIF(UNIX)
 
 # Recurse into subdirectories.
 ADD_SUBDIRECTORY(utils)
