@@ -30,14 +30,12 @@
 #include <config.h>
 #endif
 
-
-#define USE_WINDOWS_SOCKET_CLUDGE		\
-  ((defined(_WIN32) || defined(_WIN32_WCE))	\
+#if ((defined(_WIN32) || defined(_WIN32_WCE)) \
    && defined(ENABLE_SOCKET_SUPPORT))
-
+#define USE_WINDOWS_SOCKET_CLUDGE 1		
+#endif
 
 #if USE_WINDOWS_SOCKET_CLUDGE
-
 
 #include <stdarg.h>
 #include <stdio.h>
