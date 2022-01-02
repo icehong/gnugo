@@ -4596,12 +4596,19 @@ Java_com_icehong_gnugo_GnugoService_javaIntArray(JNIEnv *env, jobject thiz, jint
     return jntarray;
 
 }
-
+extern int main(int argc, char *argv[]);
 JNIEXPORT jint JNICALL
 Java_com_icehong_gnugo_GnugoService_main(JNIEnv *env, jobject thiz, jobjectArray para) {
-  int num = (*env)->GetArrayLength(env, para);
-  for(jint i = 0 ; i < num; i++){
-    jstring value = (jstring)(*env)->GetObjectArrayElement(env,para,i);
-    LOGD("str is %s", (*env)->GetStringUTFChars(env,value,NULL));
-  }
+    const char *argv[10] = {0};
+    int num = (*env)->GetArrayLength(env, para);
+    if (num >= 10) return -1;
+    argv[0] = "gnugo" ;
+    for (jint i = 0; i < num ; i++) {
+        jstring value = (*env)->GetObjectArrayElement(env, para, i);
+        argv[i+1] = (*env)->GetStringUTFChars(env,value,NULL);
+        LOGD("para %d is: %s", i, argv[i+1]);
+    }
+    main(num+1, (char **) argv);
+    LOGD("start main %d", num+1);
+    return 0;
 }
