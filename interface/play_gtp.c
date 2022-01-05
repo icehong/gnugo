@@ -4612,3 +4612,8 @@ Java_com_icehong_gnugo_GnugoService_main(JNIEnv *env, jobject thiz, jobjectArray
     LOGD("start main %d", num+1);
     return 0;
 }
+
+JNIEXPORT jint JNICALL
+Java_com_icehong_gnugo_Gnugo2Service_main(JNIEnv *env, jobject thiz, jobjectArray para) {
+    return Java_com_icehong_gnugo_GnugoService_main(env,thiz,para);
+}
