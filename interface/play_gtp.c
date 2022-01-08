@@ -35,6 +35,8 @@
 #include "gg_utils.h"
 #include <jni.h>
 #include <android/log.h>
+#include <stdlib.h>
+
 #define  LOG_TAG    "play_gtp"
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -4614,6 +4616,76 @@ Java_com_icehong_gnugo_GnugoService_main(JNIEnv *env, jobject thiz, jobjectArray
 }
 
 JNIEXPORT jint JNICALL
-Java_com_icehong_gnugo_Gnugo2Service_main(JNIEnv *env, jobject thiz, jobjectArray para) {
-    return Java_com_icehong_gnugo_GnugoService_main(env,thiz,para);
+Java_com_icehong_gnugo_GnugoService_gnugoclose(JNIEnv *env, jobject thiz) {
+    LOGD("GnugoService exit!!!");
+    exit(0);
+}
+
+extern int current_id;
+JNIEXPORT jstring JNICALL
+Java_com_icehong_gnugo_GnugoService_processGTP(JNIEnv *env, jobject thiz, jstring cmd) {
+  //TODO to be fixed
+  const char *input = (*env)->GetStringUTFChars(env, cmd, NULL);
+//  {
+//    char line[GTP_BUFSIZE];
+//    char command[GTP_BUFSIZE];
+//    char *p;
+//    int i;
+//    int n;
+//    int status = GTP_OK;
+//
+//    strncpy(line, input, GTP_BUFSIZE);
+//    line[GTP_BUFSIZE - 1] = 0;
+//
+//    /* Preprocess the line. */
+//    for (i = 0, p = line; line[i]; i++) {
+//      char c = line[i];
+//      /* Convert HT (9) to SPACE (32). */
+//      if (c == 9)
+//        *p++ = 32;
+//        /* Remove CR (13) and all other control characters except LF (10). */
+//      else if ((c > 0 && c <= 9)
+//               || (c >= 11 && c <= 31)
+//               || c == 127)
+//        continue;
+//        /* Remove comments. */
+//      else if (c == '#')
+//        break;
+//        /* Keep ordinary text. */
+//      else
+//        *p++ = c;
+//    }
+//    /* Terminate string. */
+//    *p = 0;
+//
+//    p = line;
+//
+//    /* Look for an identification number. */
+//    if (sscanf(p, "%d%n", &current_id, &n) == 1)
+//      p += n;
+//    else
+//      current_id = -1; /* No identification number. */
+//
+//    /* Look for command name. */
+//    if (sscanf(p, " %s %n", command, &n) < 1)
+//      goto exit;
+//    p += n;
+//
+//    /* Search the list of commands and call the corresponding function
+//     * if it's found.
+//     */
+//    for (i = 0; commands[i].name != NULL; i++) {
+//      if (strcmp(command, commands[i].name) == 0) {
+//        status = (*commands[i].function)(p);
+//        break;
+//      }
+//    }
+//    if (commands[i].name == NULL)
+//      gtp_failure("unknown command");
+//
+//    exit:
+//    if (status == GTP_FATAL)
+//      gtp_panic();
+//  }
+
 }
