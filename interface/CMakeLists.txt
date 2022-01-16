@@ -13,6 +13,7 @@ SET(gnugo_SRCS
     play_test.c
     gmp.c
     gtp.c
+    jni_and.c
     )
 
 ADD_LIBRARY(gnugo SHARED ${gnugo_SRCS})
